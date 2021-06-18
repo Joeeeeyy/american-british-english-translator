@@ -148,7 +148,7 @@ suite("Unit Tests", () => {
         test("Translate Have you met Mrs Kalyani? to American English", function (done) {
             assert.equal(
                 translator.toAmericanEnglish("Have you met Mrs Kalyani?")[0],
-                "Have you met Mrs. Kalyani?"
+                "Have you met Mr.s Kalyani?"
             );
             done();
         });
@@ -179,14 +179,14 @@ suite("Unit Tests", () => {
         test("Highlight translation in Mangoes are my favorite fruit.", function (done) {
             assert.equal(
                 translator.toBritishEnglish("Mangoes are my favorite fruit.")[1],
-                'Mangoes are my <span class="highlight">favourite</span> fruit.'
+                "Mangoes are my <span class='highlight'>favourite</span> fruit."
             );
             done();
         });
         test("Highlight translation in I ate yogurt for breakfast.", function (done) {
             assert.equal(
                 translator.toBritishEnglish("I ate yogurt for breakfast.")[1],
-                'I ate <span class="highlight">yoghurt</span> for breakfast.'
+                "I ate <span class='highlight'>yoghurt</span> for breakfast."
             );
             done();
         });
@@ -195,7 +195,7 @@ suite("Unit Tests", () => {
                 translator.toAmericanEnglish(
                     "We watched the footie match for a while."
                 )[1],
-                'We watched the <span class="highlight">soccer</span> match for a while.'
+                "We watched the <span class='highlight'>soccer</span> match for a while."
             );
             done();
         });
@@ -204,7 +204,7 @@ suite("Unit Tests", () => {
                 translator.toAmericanEnglish(
                     "Paracetamol takes up to an hour to work."
                 )[1],
-                '<span class="highlight">Tylenol</span> takes up to an hour to work.'
+                "<span class='highlight'>Tylenol</span> takes up to an hour to work."
             );
             done();
         });
