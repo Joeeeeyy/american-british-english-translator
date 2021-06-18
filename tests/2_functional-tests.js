@@ -6,11 +6,11 @@ const server = require("../server.js");
 chai.use(chaiHttp);
 
 let Translator = require("../components/translator.js");
-let translator = new Translator();
-
+// const { text } = require('express');
+let translator = Translator.prototype.translation;
 suite("Functional Tests", () => {
-    suite("Test different post requests.", function () {
-        test("Translation with text and locale fields: POST request to /api/translate", function (done) {
+    suite("POST / routes", () => {
+        test("POST /api/translate : Translation with text and locale fields", (done) => {
             chai
                 .request(server)
                 .post("/api/translate")
@@ -19,29 +19,41 @@ suite("Functional Tests", () => {
                     locale: "american-to-british",
                 })
                 .end(function (err, res) {
+                    if (err) return done(err);
                     assert.equal(res.status, 200);
-                    assert.equal(
-                        res.body.translation,
-                        "Mangoes are my <span class='highlight'>favourite</span> fruit."
+                    assert.propertyVal(
+                        res.body,
+                        "text",
+                        "Mangoes are my favorite fruit."
+                    );
+                    assert.propertyVal(
+                        res.body,
+                        "translation",
+                        'Mangoes are my <span class="highlight">favourite</span> fruit.'
                     );
                     done();
                 });
         });
-        test("Translation with text and invalid locale field: POST request to /api/translate", function (done) {
+        test("POST /api/translate : Translation with text and invalid locale field", (done) => {
             chai
                 .request(server)
                 .post("/api/translate")
                 .send({
                     text: "Mangoes are my favorite fruit.",
-                    locale: "invalid"
+                    locale: "american-to-indian",
                 })
                 .end(function (err, res) {
+                    if (err) return done(err);
                     assert.equal(res.status, 200);
-                    assert.equal(res.body.error, "Invalid value for locale field");
+                    assert.propertyVal(
+                        res.body,
+                        "error",
+                        "Invalid value for locale field"
+                    );
                     done();
                 });
         });
-        test("Translation with missing text field: POST request to /api/translate", function (done) {
+        test("POST /api/translate : Translation with missing text field", (done) => {
             chai
                 .request(server)
                 .post("/api/translate")
@@ -49,12 +61,13 @@ suite("Functional Tests", () => {
                     locale: "american-to-british"
                 })
                 .end(function (err, res) {
+                    if (err) return done(err);
                     assert.equal(res.status, 200);
-                    assert.equal(res.body.error, "Required field(s) missing");
+                    assert.propertyVal(res.body, "error", "Required field(s) missing");
                     done();
                 });
         });
-        test("Translation with missing locale field: POST request to /api/translate", function (done) {
+        test("POST /api/translate : Translation with missing locale field", (done) => {
             chai
                 .request(server)
                 .post("/api/translate")
@@ -62,12 +75,13 @@ suite("Functional Tests", () => {
                     text: "Mangoes are my favorite fruit."
                 })
                 .end(function (err, res) {
+                    if (err) return done(err);
                     assert.equal(res.status, 200);
-                    assert.equal(res.body.error, "Required field(s) missing");
+                    assert.propertyVal(res.body, "error", "Required field(s) missing");
                     done();
                 });
         });
-        test("Translation with empty text: POST request to /api/translate", function (done) {
+        test("POST /api/translate : Translation with empty text", (done) => {
             chai
                 .request(server)
                 .post("/api/translate")
@@ -76,22 +90,33 @@ suite("Functional Tests", () => {
                     locale: "american-to-british"
                 })
                 .end(function (err, res) {
+                    if (err) return done(err);
                     assert.equal(res.status, 200);
-                    assert.equal(res.body.error, "No text to translate");
+                    assert.propertyVal(res.body, "error", "No text to translate");
                     done();
                 });
         });
-        test("Translation with text that needs no translation: POST request to /api/translate", function (done) {
+        test("POST /api/translate : Translation with text that needs no translation", (done) => {
             chai
                 .request(server)
                 .post("/api/translate")
                 .send({
-                    text: "This one should be fine the way it is.",
+                    text: "Mangoes are my favourite fruit.",
                     locale: "american-to-british",
                 })
                 .end(function (err, res) {
+                    if (err) return done(err);
                     assert.equal(res.status, 200);
-                    assert.equal(res.body.translation, "Everything looks good to me!");
+                    assert.propertyVal(
+                        res.body,
+                        "text",
+                        "Mangoes are my favourite fruit."
+                    );
+                    assert.propertyVal(
+                        res.body,
+                        "translation",
+                        "Everything looks good to me!"
+                    );
                     done();
                 });
         });

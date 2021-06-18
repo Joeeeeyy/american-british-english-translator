@@ -2,211 +2,236 @@ const chai = require("chai");
 const assert = chai.assert;
 
 const Translator = require("../components/translator.js");
-let translator = new Translator();
-
+const translator = Translator.prototype;
 suite("Unit Tests", () => {
-    suite("Translate to British English", function () {
-        test("Translate Mangoes are my favorite fruit. to British English", function (done) {
+    suite("Check americanToBritish translation", () => {
+        test("Mangoes are my favorite fruit.", () => {
+            //<span class="highlight">10:30</span>
             assert.equal(
-                translator.toBritishEnglish("Mangoes are my favorite fruit.")[0],
-                "Mangoes are my favourite fruit."
+                translator.translation(
+                    "Mangoes are my favorite fruit.",
+                    "american-to-british"
+                ),
+                'Mangoes are my <span class="highlight">favourite</span> fruit.'
             );
-            done();
         });
-        test("Translate I ate yogurt for breakfast. to British English", function (done) {
+        test("I ate yogurt for breakfast.", () => {
             assert.equal(
-                translator.toBritishEnglish("I ate yogurt for breakfast.")[0],
-                "I ate yoghurt for breakfast."
+                translator.translation(
+                    "I ate yogurt for breakfast.",
+                    "american-to-british"
+                ),
+                'I ate <span class="highlight">yoghurt</span> for breakfast.'
             );
-            done();
         });
-        test("Translate We had a party at my friend's condo. to British English", function (done) {
+        test("We had a party at my friend's condo.", () => {
             assert.equal(
-                translator.toBritishEnglish("We had a party at my friend's condo.")[0],
-                "We had a party at my friend's flat."
+                translator.translation(
+                    "We had a party at my friend's condo.",
+                    "american-to-british"
+                ),
+                'We had a party at my friend\'s <span class="highlight">flat</span>.'
             );
-            done();
         });
-        test("Translate Can you toss this in the trashcan for me? to British English", function (done) {
+        test("Can you toss this in the trashcan for me?", () => {
             assert.equal(
-                translator.toBritishEnglish(
-                    "Can you toss this in the trashcan for me?"
-                )[0],
-                "Can you toss this in the bin for me?"
+                translator.translation(
+                    "Can you toss this in the trashcan for me?",
+                    "american-to-british"
+                ),
+                'Can you toss this in the <span class="highlight">bin</span> for me?'
             );
-            done();
         });
-        test("Translate The parking lot was full. to British English", function (done) {
+        test("The parking lot was full.", () => {
             assert.equal(
-                translator.toBritishEnglish("The parking lot was full.")[0],
-                "The car park was full."
+                translator.translation(
+                    "The parking lot was full.",
+                    "american-to-british"
+                ),
+                'The <span class="highlight">car park</span> was full.'
             );
-            done();
         });
-        test("Translate Like a high tech Rube Goldberg machine. to British English", function (done) {
+        test("Like a high tech Rube Goldberg machine.", () => {
             assert.equal(
-                translator.toBritishEnglish(
-                    "Like a high tech Rube Goldberg machine."
-                )[0],
-                "Like a high tech Heath Robinson device."
+                translator.translation(
+                    "Like a high tech Rube Goldberg machine.",
+                    "american-to-british"
+                ),
+                'Like a high tech <span class="highlight">Heath Robinson device</span>.'
             );
-            done();
         });
-        test("Translate To play hooky means to skip class or work. to British English", function (done) {
+        test("To play hooky means to skip class or work.", () => {
             assert.equal(
-                translator.toBritishEnglish(
-                    "To play hooky means to skip class or work."
-                )[0],
-                "To bunk off means to skip class or work."
+                translator.translation(
+                    "To play hooky means to skip class or work.",
+                    "american-to-british"
+                ),
+                'To <span class="highlight">bunk off</span> means to skip class or work.'
             );
-            done();
         });
-        test("Translate No Mr. Bond, I expect you to die. to British English", function (done) {
+        test("No Mr.Bond, I expect you to die.", () => {
             assert.equal(
-                translator.toBritishEnglish("No Mr. Bond, I expect you to die.")[0],
-                "No Mr Bond, I expect you to die."
+                translator.translation(
+                    "No Mr. Bond, I expect you to die.",
+                    "american-to-british"
+                ),
+                'No <span class="highlight">Mr</span> Bond, I expect you to die.'
             );
-            done();
         });
-        test("Translate Dr. Grosh will see you now. to British English", function (done) {
+        test("Dr.Grosh will see you now.", () => {
             assert.equal(
-                translator.toBritishEnglish("Dr. Grosh will see you now.")[0],
-                "Dr Grosh will see you now."
+                translator.translation(
+                    "Dr. Grosh will see you now.",
+                    "american-to-british"
+                ),
+                '<span class="highlight">Dr</span> Grosh will see you now.'
             );
-            done();
         });
-        test("Translate Lunch is at 12:15 today. to British English", function (done) {
+        test("Lunch is at 12:15 today.", () => {
             assert.equal(
-                translator.toBritishEnglish("Lunch is at 12:15 today.")[0],
-                "Lunch is at 12.15 today."
+                translator.translation(
+                    "Lunch is at 12:15 today.",
+                    "american-to-british"
+                ),
+                'Lunch is at <span class="highlight">12.15</span> today.'
             );
-            done();
         });
-    });
-    suite("Translate to American English", function () {
-        test("Translate We watched the footie match for a while. to American English", function (done) {
+        test("We watched the footie match for a while.", () => {
             assert.equal(
-                translator.toAmericanEnglish(
-                    "We watched the footie match for a while."
-                )[0],
-                "We watched the soccer match for a while."
+                translator.translation(
+                    "We watched the footie match for a while.",
+                    "british-to-american"
+                ),
+                'We watched the <span class="highlight">soccer</span> match for a while.'
             );
-            done();
         });
-        test("Translate Paracetamol takes up to an hour to work. to American English", function (done) {
+        test("Paracetamol takes up to an hour to work.", () => {
             assert.equal(
-                translator.toAmericanEnglish(
-                    "Paracetamol takes up to an hour to work."
-                )[0],
-                "Tylenol takes up to an hour to work."
+                translator.translation(
+                    "Paracetamol takes up to an hour to work.",
+                    "british-to-american"
+                ),
+                '<span class="highlight">Tylenol</span> takes up to an hour to work.'
             );
-            done();
         });
-        test("Translate First, caramelise the onions. to American English", function (done) {
+        test("First, caramelise the onions.", () => {
             assert.equal(
-                translator.toAmericanEnglish("First, caramelise the onions.")[0],
-                "First, caramelize the onions."
+                translator.translation(
+                    "First, caramelise the onions.",
+                    "british-to-american"
+                ),
+                'First, <span class="highlight">caramelize</span> the onions.'
             );
-            done();
         });
-        test("Translate I spent the bank holiday at the funfair. to American English", function (done) {
+        test("I spent the bank holiday at the funfair.", () => {
             assert.equal(
-                translator.toAmericanEnglish(
-                    "I spent the bank holiday at the funfair."
-                )[0],
-                "I spent the public holiday at the carnival."
+                translator.translation(
+                    "I spent the bank holiday at the funfair.",
+                    "british-to-american"
+                ),
+                'I spent the <span class="highlight">public holiday</span> at the <span class="highlight">carnival</span>.'
             );
-            done();
         });
-        test("Translate I had a bicky then went to the chippy. to American English", function (done) {
+        test("I had a bicky then went to the chippy.", () => {
             assert.equal(
-                translator.toAmericanEnglish(
-                    "I had a bicky then went to the chippy."
-                )[0],
-                "I had a cookie then went to the fish-and-chip shop."
+                translator.translation(
+                    "I had a bicky then went to the chippy.",
+                    "british-to-american"
+                ),
+                'I had a <span class="highlight">cookie</span> then went to the <span class="highlight">fish-and-chip shop</span>.'
             );
-            done();
         });
-        test("Translate I've just got bits and bobs in my bum bag. to American English", function (done) {
+        test("I've just got bits and bobs in my bum bag.", () => {
             assert.equal(
-                translator.toAmericanEnglish(
-                    "I've just got bits and bobs in my bum bag."
-                )[0],
-                "I've just got odds and ends in my fanny pack."
+                translator.translation(
+                    "I've just got bits and bobs in my bum bag.",
+                    "british-to-american"
+                ),
+                'I\'ve just got <span class="highlight">odds and ends</span> in my <span class="highlight">fanny pack</span>.'
             );
-            done();
         });
-        test("Translate The car boot sale at Boxted Airfield was called off. to American English", function (done) {
+        test("The car boot sale at Boxted Airfield was called off.", () => {
             assert.equal(
-                translator.toAmericanEnglish(
-                    "The car boot sale at Boxted Airfield was called off."
-                )[0],
-                "The swap meet at Boxted Airfield was called off."
+                translator.translation(
+                    "The car boot sale at Boxted Airfield was called off.",
+                    "british-to-american"
+                ),
+                'The <span class="highlight">swap meet</span> at Boxted Airfield was called off.'
             );
-            done();
         });
-        test("Translate Have you met Mrs Kalyani? to American English", function (done) {
+        test("Have you met Mrs Kalyani?", () => {
             assert.equal(
-                translator.toAmericanEnglish("Have you met Mrs Kalyani?")[0],
-                "Have you met Mr.s Kalyani?"
+                translator.translation(
+                    "Have you met Mrs Kalyani?",
+                    "british-to-american"
+                ),
+                'Have you met <span class="highlight">Mrs.</span> Kalyani?'
             );
-            done();
         });
-        test("Translate Prof Joyner of King's College, London. to American English", function (done) {
+        test("Prof Joyner of King's College, London.", () => {
             assert.equal(
-                translator.toAmericanEnglish(
-                    "Prof Joyner of King's College, London."
-                )[0],
-                "Prof. Joyner of King's College, London."
+                translator.translation(
+                    "Prof Joyner of King's College, London.",
+                    "british-to-american"
+                ),
+                '<span class="highlight">Prof.</span> Joyner of King\'s College, London.'
             );
-            done();
         });
-        test("Translate Tea time is usually around 4 or 4.30. to American English", function (done) {
+        test("Tea time is usually around 4 or 4.30.", () => {
             assert.equal(
-                translator.toAmericanEnglish(
-                    "Tea time is usually around 4 or 4.30."
-                )[0],
-                "Tea time is usually around 4 or 4:30."
+                translator.translation(
+                    "Tea time is usually around 4 or 4.30.",
+                    "british-to-american"
+                ),
+                'Tea time is usually around 4 or <span class="highlight">4:30</span>.'
             );
-            done();
-        });
-    });
-    suite("Highlight Translation", function () {
-        // Highlight translation in Mangoes are my favorite fruit.
-        // Highlight translation in I ate yogurt for breakfast.
-        // Highlight translation in We watched the footie match for a while.
-        // Highlight translation in Paracetamol takes up to an hour to work.
-        test("Highlight translation in Mangoes are my favorite fruit.", function (done) {
-            assert.equal(
-                translator.toBritishEnglish("Mangoes are my favorite fruit.")[1],
-                "Mangoes are my <span class='highlight'>favourite</span> fruit."
-            );
-            done();
-        });
-        test("Highlight translation in I ate yogurt for breakfast.", function (done) {
-            assert.equal(
-                translator.toBritishEnglish("I ate yogurt for breakfast.")[1],
-                "I ate <span class='highlight'>yoghurt</span> for breakfast."
-            );
-            done();
-        });
-        test("Highlight translation in We watched the footie match for a while.", function (done) {
-            assert.equal(
-                translator.toAmericanEnglish(
-                    "We watched the footie match for a while."
-                )[1],
-                "We watched the <span class='highlight'>soccer</span> match for a while."
-            );
-            done();
-        });
-        test("Highlight translation in Paracetamol takes up to an hour to work.", function (done) {
-            assert.equal(
-                translator.toAmericanEnglish(
-                    "Paracetamol takes up to an hour to work."
-                )[1],
-                "<span class='highlight'>Tylenol</span> takes up to an hour to work."
-            );
-            done();
         });
     });
+    suite('Check for "Hightlight" translated text', () => {
+        test("Mangoes are my favorite fruit.", () => {
+            assert.include(
+                translator.translation(
+                    "Mangoes are my favorite fruit.",
+                    "american-to-british"
+                ),
+                '<span class="highlight">favourite</span>',
+                'should wrap the "favourite" in span with class = "highlight"'
+            );
+        });
+        test("I ate yogurt for breakfast.", () => {
+            assert.include(
+                translator.translation(
+                    "I ate yogurt for breakfast.",
+                    "american-to-british"
+                ),
+                '<span class="highlight">yoghurt</span>',
+                'should wrap the "yoghurt" in span with class = "highlight"'
+            );
+        });
+        test("We watched the footie match for a while.", () => {
+            assert.include(
+                translator.translation(
+                    "We watched the footie match for a while.",
+                    "british-to-american"
+                ),
+                '<span class="highlight">soccer</span>',
+                'should wrap the "soccer" in span with class = "highlight"'
+            );
+        });
+        test("Paracetamol takes up to an hour to work.", () => {
+            assert.include(
+                translator.translation(
+                    "Paracetamol takes up to an hour to work.",
+                    "british-to-american"
+                ),
+                '<span class="highlight">Tylenol</span>',
+                'should wrap the "Tylenol" in span with class = "highlight"'
+            );
+        });
+    });
+    // test('Check Highlight translation',()=>{
+    // 	assert.equal(translator.translation("Prof Joyner of King's College, London.",'british-to-american'),"Prof. Joyner of King's College, London.")
+    // 	assert.equal(translator.translation('The car boot sale at Boxted Airfield was called off.','british-to-american'),'The swap meet at Boxted Airfield was called off.')
+    // })
 });
+// });
